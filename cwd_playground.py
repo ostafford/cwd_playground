@@ -14,7 +14,7 @@ def display_menu():
 
 # Function to add an item
 def add_item():
-    pass
+    pass # just adding comment to confirm new branch creation
 
 
 # Function to remove an item
