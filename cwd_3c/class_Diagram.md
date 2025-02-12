@@ -1,6 +1,6 @@
 ```mermaid
 classDiagram
-    class Title ["UserInterface (Presentation Layer)"] {
+    class Presentation_Title ["UserInterface (Presentation Layer)"] {
         -pantry_manager: PantryManager
         +display_menu()
         +add_item_flow()
@@ -11,13 +11,28 @@ classDiagram
         -_get_item_details()
     }
 
-
+class Business_Logic_Title ["PantryManager (Business Logic Layer)"] {
+        -storage_handler: StorageHandler
+        -categories: Set[str]
+        -items_by_category: Dict
+        +add_item(item: PantryItem)
+        +remove_item(item_id: str)
+        +get_items_by_category(category: str)
+        +get_expiring_items(days: int)
+        +save_data()
+        +load_data()
+    }
 ```
+---
 
-# UML Description
 
-## User Interface (Presentation Layer)
-### Questions I asked myself 🤔
+## UML Concept
+---
+
+### User Interface (Presentation Layer)
+---
+
+#### Questions I asked myself 🤔
 - What will the user see upon start up?
 - What is the first thing the user should do to fulfuil the purpose of the app?
 - How can they resolve their own mistakes?
@@ -43,3 +58,15 @@ classDiagram
 #### `methods` *(Private)* ("getter")
 `_get_category()`: Internal helper method to get category information when adding an item *(Allowing the user to input information when prompted)*
 `_get_item_details()`: Internal helper method to gather item details *(Allowing the user to input information when prompted)*
+
+---
+
+### User Interface (Presentation Layer)
+### Questions I asked myself 🤔
+- Allowing the user to choose from previously added categories to save on input time.
+- When viewing your items having them sorted by category rather than a long list of items. (Viewable UI)
+- 
+
+#### `attributes` (Private)
+- `self.storage_handler = StorageHandler` an object value being able to access other `methods` `attributes` and various functionalities if needed that relate to storage (read/write) CSV/JSON File.
+- `self.categories = Set[str]` 
