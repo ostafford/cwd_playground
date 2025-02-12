@@ -17,6 +17,13 @@ classDiagram
 # UML Description
 
 ## User Interface (Presentation Layer)
+### Questions I asked myself 🤔
+- What will the user see upon start up?
+- What is the first thing the user should do to fulfuil the purpose of the app?
+- How can they resolve their own mistakes?
+- How can they see what they've done?
+- How can they navigate the app?
+
 #### Symbols
 - `-` means "private" (internal use only within the class)
     - Can't be accessed by other `class` and or `methods`
