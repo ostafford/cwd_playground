@@ -1,6 +1,6 @@
 ```mermaid
 classDiagram
-    class Presentation_Title ["UserInterface (Presentation Layer)"] {
+    class PL ["UserInterface (Presentation Layer)"] {
         -pantry_manager: PantryManager
         +display_menu()
         +add_item_flow()
@@ -11,7 +11,7 @@ classDiagram
         -_get_item_details()
     }
 
-class Business_Logic_Title ["PantryManager (Business Logic Layer)"] {
+class BLL ["PantryManager (Business Logic Layer)"] {
         -storage_handler: StorageHandler
         -categories: Set[str]
         -items_by_category: Dict
@@ -22,6 +22,8 @@ class Business_Logic_Title ["PantryManager (Business Logic Layer)"] {
         +save_data()
         +load_data()
     }
+
+PL --> BLL
 ```
 ---
 

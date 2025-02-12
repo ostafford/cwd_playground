@@ -1,0 +1,5 @@
+category,name,quantity,unit,expiry_date
+Fruit,Apple,3,pieces,2025-02-17
+Fruit,Pear,4,pieces,2025-02-20
+Veggies,Carrot,10,pieces,2025-02-25
+Dairy,Milk,1,litre,2025-02-25
