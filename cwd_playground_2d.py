@@ -15,7 +15,7 @@ class Item:
 
     def __str__(self):
         """Return string representation of the item."""
-        return f"{self.name} ({self.quantity}{self.unit}) expiring {self.expiry_date}"
+        return f"{self.name} ({self.quantity}{self.unit}) EXP {self.expiry_date}"
 
     def to_dict(self):
         """Convert item to dictionary format."""
