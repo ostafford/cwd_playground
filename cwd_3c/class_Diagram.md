@@ -36,11 +36,16 @@ classDiagram
         +from_dict()
     }
 
+    class PSTL ["Persistence Layer"] {
+        - Next Layer to do
+    }
+
 
 
 
 PL --> BLL
 BLL --> PI
+BLL --> PSTL
 ```
 ---
 
@@ -157,3 +162,4 @@ Converts dictionary data (usually from stored CSV/JSON files) back into a `Pantr
 
 ---
 
+### Local Database (Persistence Layer)
