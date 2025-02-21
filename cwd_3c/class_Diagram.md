@@ -192,3 +192,46 @@ Defines that all storage handlers must implement a way to restore from backup
 - Makes it easier to add new storage types later (like database storage)(expansion)
 - Helps prevent errors by forcing implementation of all necessary methods
 
+---
+
+### JSONHandler *(Persistence Layer)*
+
+#### Questions I asked myself 🤔
+- JSON is better at perserving data structures, more reliable for complex data.
+- This relates to `StorageHandler` in which its a concrete implementation.
+- ==> **Need to handle "FileNotFoundError"** <==
+
+#### `attributes` *(Private)*
+- `-filename: str` This stores the path/name of the JSON file.
+- `-backup_filename: str` Stores the path/name of the "backup" JSON file.
+
+#### `methods` *(Public)*
+- `save(data: Dict)`
+Takes dictionary data and saves to JSON file. This initiates the JSON writing (`json.dump()`)
+- `load() -> Dict`
+Reads JSON file and returns it as dictionary format (`json.load()`)
+- `backup()`
+Copy current JSON file and save it as "backup_filename.
+- `restore_from_backup`
+Copies "backup_filename" to "main_filename" when "main_filename" is corrupted. 
+
+---
+
+### CSVHandler *(Persistence Layer)*
+
+#### Questions I asked myself 🤔
+- CSV is user friendly if needed to be entered in manually
+- JSON serves as backup method
+- Need to create CSV to JSON backup method.
+- CSV error due to user edit. (Need to restore from JSON backup)
+
+#### `attributes` *(Private)*
+- `-filename: str` Stores the path/name of the CSV file
+
+#### `methods` *(Public)*
+- `save(data: Dict)`
+Takes dictionary data and saves it to the CSV file (`csv.DictWriter`)
+- `load() : Dict`
+Reads the data from the CSV file and returns as dictionary format (`csv.DictReader`)
+
+---
