@@ -1,4 +1,10 @@
+# UML Concept
+
 ```mermaid
+---
+title: Class Diagram
+--- 
+
 classDiagram
     class PL ["UserInterface
     (Presentation Layer)"] {
@@ -47,21 +53,34 @@ classDiagram
         +restore_from_backup()
     }
 
+    class JSON ["JSONHandler"] {
+        -filename: str
+        -backup_filename: str
+        +save(data: Dict)
+        +load() Dict
+        +backup()
+        +restore_from_backup()
+    }
 
-
+    class CSV ["CSVHandler"] {
+        -filename: str
+        +save(data: Dict)
+        +load() Dict
+    }
 
 PL --> BLL
 BLL --> PI
 BLL --> PSTL
+PSTL --> JSON
+PSTL --> CSV
+
 ```
----
+<br>
 
+<h2>Description</h2>
 
-## UML Concept
----
-
-### User Interface *(Presentation Layer)*
----
+<details><summary><u>User Interface (Presentation Layer)</u></summary>
+<br>
 
 #### Questions I asked myself 🤔
 - What will the user see upon start up?
@@ -97,10 +116,10 @@ Processes user input and directs it to appropriate actions. Navigation throughou
 Internal helper method to get category information when adding an item *(Allowing the user to input information when prompted)*
 - `_get_item_details()`
 Internal helper method to gather item details *(Allowing the user to input information when prompted)*
+</details>
 
----
-
-### PantryManager *(Business Logic Layer)*
+<details><summary><u>PantryManager (Business Logic Layer)</u></summary>
+<br>
 
 #### Questions I asked myself 🤔
 - Allowing the user to choose from previously added categories to save on input time.
@@ -131,10 +150,10 @@ Returns items that will expire within the specified number of days. Showcase the
 Used in conjunction with `storage_handler` that will store user input to a CSV file and restore. 
 - `load_data()`
 Uses `storage_handler` to load saved data from CSV. Restoring users inventory from local storage. This would be the first check to initiate if new file needs to be created or not. This may also initialize `items_by_category` if data is needed.
+</details>
 
----
-
-### PantryItem *(Package)*
+<details><summary><u>PantryItem (Package)</u></summary>
+<br>
 
 #### Questions I asked myself 🤔
 - What information does the user need to put in to save their items? (name, category, quantity, expiry date)
@@ -166,10 +185,10 @@ Converts the `PantryItem` object's data to a dictionary format so it can be stor
 Serialization means converting an object into a format that can be easily stored or transmitted.
 - `from_dict()` *[Deserialization]*
 Converts dictionary data (usually from stored CSV/JSON files) back into a `PantryItem` object so the app can work with it using object methods and attributes. 
+</details>
 
----
-
-### StorageHandler *(Persistence Layer)*
+<details><summary><u>StorageHandler (Persistence Layer)</u></summary>
+<br>
 
 #### Questions I asked myself 🤔
 - `storageHandler` isn't a class or instance you must create specific types (like CSVStorage or JSONStorage)
@@ -191,10 +210,10 @@ Defines that all storage handlers must implement a way to restore from backup
 - Consistency across different storage types
 - Makes it easier to add new storage types later (like database storage)(expansion)
 - Helps prevent errors by forcing implementation of all necessary methods
+</details>
 
----
-
-### JSONHandler *(Persistence Layer)*
+<details><summary><u>JSONHandler *(Persistence Layer)*</u></summary>
+<br>
 
 #### Questions I asked myself 🤔
 - JSON is better at perserving data structures, more reliable for complex data.
@@ -214,10 +233,10 @@ Reads JSON file and returns it as dictionary format (`json.load()`)
 Copy current JSON file and save it as "backup_filename.
 - `restore_from_backup`
 Copies "backup_filename" to "main_filename" when "main_filename" is corrupted. 
+</details>
 
----
-
-### CSVHandler *(Persistence Layer)*
+<details><summary><u>CSVHandler *(Persistence Layer)*</u></summary>
+<br>
 
 #### Questions I asked myself 🤔
 - CSV is user friendly if needed to be entered in manually
@@ -233,5 +252,4 @@ Copies "backup_filename" to "main_filename" when "main_filename" is corrupted.
 Takes dictionary data and saves it to the CSV file (`csv.DictWriter`)
 - `load() : Dict`
 Reads the data from the CSV file and returns as dictionary format (`csv.DictReader`)
-
----
+</details>
