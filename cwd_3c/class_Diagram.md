@@ -1,6 +1,7 @@
 ```mermaid
 classDiagram
-    class PL ["UserInterface (Presentation Layer)"] {
+    class PL ["UserInterface
+    (Presentation Layer)"] {
         -pantry_manager: PantryManager
         +display_menu()
         +add_item_flow()
@@ -11,7 +12,8 @@ classDiagram
         -_get_item_details()
     }
 
-    class BLL ["PantryManager (Business Logic Layer)"] {
+    class BLL ["PantryManager
+    (Business Logic Layer)"] {
         -storage_handler: StorageHandler
         -categories: Set[str]
         -items_by_category: Dict
@@ -36,8 +38,13 @@ classDiagram
         +from_dict()
     }
 
-    class PSTL ["Persistence Layer"] {
-        - Next Layer to do
+    class PSTL ["StorageHandler
+    (Persistence Layer)"] {
+        <<abstract>>
+        +save(data: Dict)
+        +load() Dict
+        +backup()
+        +restore_from_backup()
     }
 
 
@@ -53,7 +60,7 @@ BLL --> PSTL
 ## UML Concept
 ---
 
-### User Interface (Presentation Layer)
+### User Interface *(Presentation Layer)*
 ---
 
 #### Questions I asked myself 🤔
@@ -93,7 +100,7 @@ Internal helper method to gather item details *(Allowing the user to input infor
 
 ---
 
-### User Interface (Presentation Layer)
+### PantryManager *(Business Logic Layer)*
 
 #### Questions I asked myself 🤔
 - Allowing the user to choose from previously added categories to save on input time.
@@ -162,4 +169,26 @@ Converts dictionary data (usually from stored CSV/JSON files) back into a `Pantr
 
 ---
 
-### Local Database (Persistence Layer)
+### StorageHandler *(Persistence Layer)*
+
+#### Questions I asked myself 🤔
+- `storageHandler` isn't a class or instance you must create specific types (like CSVStorage or JSONStorage)
+- **<\<Abstract>>** defines a template/contract that enforces which methods must be implemented by any class that inherits from it (child classes).
+- This ensures all storage handlers (CSV or JSON) will have the same core functionality, just implemented differently for their specific needs
+
+
+#### `methods` *(Public)*
+- `save(data: Dict)`
+Defines that all storage handlers must implement a way to save dictionary data
+- `load() : Dict`
+Defines that all storage handlers must implement a way to load and return data as a dictionary
+- `backup()`
+Defines that all storage handlers must implement a backup functionality
+- `restore_from_backup`
+Defines that all storage handlers must implement a way to restore from backup
+
+#### Why? **<\<Abstract>>**
+- Consistency across different storage types
+- Makes it easier to add new storage types later (like database storage)(expansion)
+- Helps prevent errors by forcing implementation of all necessary methods
+
